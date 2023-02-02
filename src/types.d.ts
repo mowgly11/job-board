@@ -1,23 +1,22 @@
-declare module 'passport-google-oidc' {
-    import { Strategy as PassportStrategy } from 'passport';
-
-    type VerifyFunction = (
-        accessToken: string,
-        refreshToken: string,
-        profile: any,
-        cb: (error: any, user?: any, info?: any) => void
-    ) => void;
-
-    interface StrategyOptions {
-        clientID: string;
-        clientSecret: string;
-        callbackURL: string;
-        userProfileURL?: string;
+interface ValidProfile {
+    id: string,
+    displayName: string,
+    name: {
+        familyName: string, givenName: string
+    },
+    photos: [
+        {
+            value: string
+        }
+    ],
+    provider: string,
+    _raw: string,
+    _json: {
+        sub: string,
+        name: string,
+        given_name: string,
+        family_name: string,
+        picture: string,
+        locale: string
     }
-
-    class OIDCStrategy extends PassportStrategy {
-        constructor(options: StrategyOptions, verify: VerifyFunction);
-    }
-
-    export = OIDCStrategy;
 }

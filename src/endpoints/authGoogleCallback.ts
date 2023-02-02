@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
+import passport from 'passport';
 
 let options = {
     methods: ["get"],
-    endpoint: "/",
-    middleware: false,
+    endpoint: "/auth/google/callback",
+    middleware: passport.authenticate('google', { failureRedirect: '/login' }),
     callbackGET: function (req: Request, res: Response, next: NextFunction) {
-        res.render("index.ejs", { auth: req.isAuthenticated() });
+        res.redirect('/protected');
     }
 }
 
