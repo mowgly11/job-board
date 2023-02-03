@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Account Type</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <title>Choose Account Type</title>
 </head>
+
 <body>
-    <h1>Account Type</h1>
-    <form action="/accountType" method="post">
-        <h3>Are You A Company Or A Worker ?</h3>
-        <div class="company">
-            <button value="company" name="type" type="submit">Company</button>
-        </div>
-        <div class="worker">
-            <button value="worker" name="type" type="submit">Worker</button>
-        </div>
-    </form>
+  <h1>Account Type</h1>
+  <p class="errors"></p>
+  <form action="/accountType" method="post" id="choose-type-form">
+    <h3>Are You A Company Or A Worker ?</h3>
+    <div>
+      <input type="radio" id="company" name="type" value="company">
+      <label for="company">Company</label>
+    </div>
+    <div>
+      <input type="radio" id="worker" name="type" value="worker">
+      <label for="worker">Worker</label>
+    </div>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+
+  <script>
+    $(document).ready(() => {
+      $("#choose-type-form").on('submit', e => {
+        e.preventDefault();
+
+        console.log($('input[name="type"]').val())
+      })
+    })
+  </script>
 </body>
+
 </html>

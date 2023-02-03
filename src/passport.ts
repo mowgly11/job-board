@@ -3,14 +3,15 @@ import config from './config.json';
 import User from './mongoDB/Schema/user';
 
 export default function initialisePassport(passport: any, getUserById: Function) {
-    const verify = async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
+    async function verify(accessToken: string, refreshToken: string, profile: any, done: Function) {
         let user = await getUserById(profile.id);
 
         if (user) return done(null, profile);
         else {
             new User({
                 googleId: profile.id,
-                fullname: profile.displayName
+                fullname: profile.displayName,
+                accountType: ""
             }).save();
 
             return done(null, profile);
@@ -27,4 +28,27 @@ export default function initialisePassport(passport: any, getUserById: Function)
     passport.deserializeUser((id: string, done: Function) => {
         return done(null, getUserById(id));
     });
+}
+
+interface ValidProfile {
+    id: string,
+    displayName: string,
+    name: {
+        familyName: string, givenName: string
+    },
+    photos: [
+        {
+            value: string
+        }
+    ],
+    provider: string,
+    _raw: string,
+    _json: {
+        sub: string,
+        name: string,
+        given_name: string,
+        family_name: string,
+        picture: string,
+
+    }
 }

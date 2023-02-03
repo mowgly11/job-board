@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../config.json';
 
-export default function initialiseMongoDB() {
+export default function initialiseMongoDB():void {
     mongoose.connect(config.mongoDbURL);
 
     mongoose.set('strictQuery', true);

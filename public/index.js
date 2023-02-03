@@ -22,6 +22,7 @@ const express_session_1 = __importDefault(require("express-session"));
 const config_json_1 = __importDefault(require("./config.json"));
 const user_1 = __importDefault(require("./mongoDB/Schema/user"));
 const express_flash_1 = __importDefault(require("express-flash"));
+const body_parser_1 = __importDefault(require("body-parser"));
 (0, mongoDB_1.default)();
 (0, passport_1.default)(passport_2.default, (id) => __awaiter(void 0, void 0, void 0, function* () {
     return yield user_1.default.findOne({
@@ -30,7 +31,7 @@ const express_flash_1 = __importDefault(require("express-flash"));
 }));
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
-app.use(express_1.default.json({ limit: '100mb' }));
+app.use(express_1.default.json());
 app.use(express_1.default.static(__dirname + '../views'));
 app.use((0, express_session_1.default)({
     secret: config_json_1.default.session_secret,
@@ -38,26 +39,27 @@ app.use((0, express_session_1.default)({
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 168 }
 }));
+app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((0, express_flash_1.default)());
 app.use(passport_2.default.initialize());
 app.use(passport_2.default.session());
 let port = 80;
 const endpointsFiles = fs_1.default.readdirSync(path_1.default.join(__dirname, 'endpoints'));
-endpointsFiles.forEach(f => {
+endpointsFiles.forEach((f) => {
     const file = require(`./endpoints/${f}`).default;
-    if (file.methods.indexOf('get') !== -1) {
+    if (file.methods.find((e) => e === "get") != null) {
         if (file.middleware)
             app.get(`${file.endpoint}`, file.middleware, file.callbackGET);
         else
             app.get(`${file.endpoint}`, file.callbackGET);
     }
-    if (file.methods.indexOf('post') !== -1) {
+    if (file.methods.find((e) => e === 'post') != null) {
         if (file.middleware)
             app.post(`${file.endpoint}`, file.middleware, file.callbackPOST);
         else
             app.post(`${file.endpoint}`, file.callbackPOST);
     }
-    if (file.methods.indexOf('delete') !== -1) {
+    if (file.methods.find((e) => e === 'delete') != null) {
         if (file.middleware)
             app.delete(`${file.endpoint}`, file.middleware, file.callbackDELETE);
         else

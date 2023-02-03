@@ -17,6 +17,8 @@ let options = {
             return res.redirect("/login");
         });
 
+        if(user && user.accountType === "") return res.redirect("/accountType");
+
         res.render("panel.ejs", { auth: req.isAuthenticated(), name: user.fullname });
     }
 }

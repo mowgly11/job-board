@@ -16,18 +16,21 @@ const passport_google_oauth20_1 = require("passport-google-oauth20");
 const config_json_1 = __importDefault(require("./config.json"));
 const user_1 = __importDefault(require("./mongoDB/Schema/user"));
 function initialisePassport(passport, getUserById) {
-    const verify = (accessToken, refreshToken, profile, done) => __awaiter(this, void 0, void 0, function* () {
-        let user = yield getUserById(profile.id);
-        if (user)
-            return done(null, profile);
-        else {
-            new user_1.default({
-                googleId: profile.id,
-                fullname: profile.displayName
-            }).save();
-            return done(null, profile);
-        }
-    });
+    function verify(accessToken, refreshToken, profile, done) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let user = yield getUserById(profile.id);
+            if (user)
+                return done(null, profile);
+            else {
+                new user_1.default({
+                    googleId: profile.id,
+                    fullname: profile.displayName,
+                    accountType: ""
+                }).save();
+                return done(null, profile);
+            }
+        });
+    }
     passport.use(new passport_google_oauth20_1.Strategy({
         clientID: config_json_1.default.client_id,
         clientSecret: config_json_1.default.client_secret,
