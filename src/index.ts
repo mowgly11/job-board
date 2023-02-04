@@ -9,11 +9,12 @@ import config from './config.json';
 import User from './mongoDB/Schema/user';
 import flash from 'express-flash';
 import bodyParser from 'body-parser';
+import methodOverride from "method-override";
 
 initialiseMongoDB();
 initialisePassport(passport,
     async (id: string) => await User.findOne({
-        googleId: id
+        id: id
     }));
 
 const app: Express = express();
@@ -22,7 +23,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static(__dirname + '../views'));
 app.use(session({
-    secret: config.session_secret,
+    secret: config.server.session_secret,
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 168 }
@@ -31,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride("_method"));
 
 let port: number = 80;
 
@@ -51,7 +53,7 @@ endpointsFiles.forEach((f: string) => {
 
     if (file.methods.find((e: string) => e === 'delete') != null) {
         if (file.middleware) app.delete(`${file.endpoint}`, file.middleware, file.callbackDELETE);
-        else app.post(`${file.endpoint}`, file.callbackDELETE);
+        else app.delete(`${file.endpoint}`, file.callbackDELETE);
     }
 });
 

@@ -9,7 +9,7 @@ let options = {
     callbackGET: async function (req: Request, res: Response, next: NextFunction) {
         const id = req.session.passport.user;
         const user = await User.findOne({
-            googleId: id
+            id: id
         });
 
         if (!user) return req.logOut((err) => {
@@ -19,7 +19,7 @@ let options = {
 
         if(user && user.accountType === "") return res.redirect("/accountType");
 
-        res.render("panel.ejs", { auth: req.isAuthenticated(), name: user.fullname });
+        res.render("panel.ejs", { auth: req.isAuthenticated(), name: user.username });
     }
 }
 

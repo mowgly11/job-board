@@ -1,9 +1,13 @@
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
-    googleId: String,
-    fullname: String,
-    premium: Boolean,
+    id: String,
+    authType: String,
+    username: String,
+    premium: {
+        type: Boolean,
+        default: false
+    },
     accountType: String
 });
 

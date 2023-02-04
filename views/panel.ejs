@@ -10,7 +10,10 @@
 </head>
 
 <body>
-  Welcome <%= name %>
+  <h1>Welcome <%= name %></h1>
+  <form action="/logout?_method=DELETE" method="POST">
+    <button type="submit">Logout</button>
+  </form>
 </body>
 
 </html>

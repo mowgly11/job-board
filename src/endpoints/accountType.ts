@@ -6,10 +6,10 @@ let options = {
     methods: ["get", "post"],
     endpoint: "/accountType",
     middleware: checkAuthenticated,
-    callbackGET: async function (req: Request, res: Response, next: NextFunction) {
+    callbackGET: async (req: Request, res: Response, next: NextFunction) => {
         const id = req.session.passport.user;
-        const user = await User.findOne({
-            googleId: id
+        const user: User | null = await User.findOne({
+            id: id
         });
 
         if (!user) return req.logOut((err) => {
@@ -21,11 +21,37 @@ let options = {
 
         res.render("accountType.ejs", { auth: req.isAuthenticated() });
     },
-    callbackPOST: function (req: Request, res: Response, next: NextFunction) {
+    callbackPOST: async (req: Request, res: Response, next: NextFunction) => {
         const type: string = req.body.type;
+        const id: string = req.session.passport.user;
 
         if(type !== "company" && type !== "worker") return res.send({ error: "Some Error Just Occured. Try Again Later" });
+
+        const user: User | null = await User.findOne({
+            id: id
+        });
+
+        if (!user) return req.logOut((err) => {
+            if (err) throw new Error("Error loggin out");
+            return res.redirect("/login");
+        });
+
+        if (user && user.accountType !== "") return res.redirect("/protected");
+
+        user.accountType = `${type}`;
+
+        await user.save();
+
+        res.redirect("/protected");
     }
 }
 
 export default options;
+
+interface User {
+    id: String,
+    fullname: String,
+    premium: Boolean,
+    accountType: String,
+    save(): any;
+}
