@@ -55,17 +55,17 @@ export default function initialisePassport(passport: any, getUserById: Function)
 interface ValidProfile {
     id: string,
     displayName: string,
-    name: {
+    name?: {
         familyName: string, givenName: string
     },
-    photos: [
+    photos?: [
         {
             value: string
         }
     ],
     provider: string,
-    _raw: string,
-    _json: {
+    _raw?: string,
+    _json?: {
         sub: string,
         name: string,
         given_name: string,
