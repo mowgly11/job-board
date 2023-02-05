@@ -26,7 +26,7 @@ app.use(session({
     secret: config.server.session_secret,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 168 }
+    cookie: { maxAge: 1000 * 60 * 60 * 48 }
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(flash());
