@@ -4,7 +4,7 @@ import User from '../mongoDB/Schema/user';
 
 let options = {
     methods: ["get"],
-    endpoint: "/protected",
+    endpoint: "/dashboard",
     middleware: checkAuthenticated,
     callbackGET: async function (req: Request, res: Response, next: NextFunction) {
         const id = req.session.passport.user;

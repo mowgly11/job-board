@@ -6,7 +6,7 @@ let options = {
     endpoint: "/auth/google/callback",
     middleware: passport.authenticate('google', { failureRedirect: '/login' }),
     callbackGET: function (req: Request, res: Response, next: NextFunction) {
-        res.redirect('/protected');
+        res.redirect('/dashboard');
     }
 }
 

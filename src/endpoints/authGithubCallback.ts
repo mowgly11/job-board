@@ -6,7 +6,7 @@ let options = {
     endpoint: "/auth/github/callback",
     middleware: passport.authenticate('github', { failureRedirect: '/login' }),
     callbackGET: (req: Request, res: Response, next: NextFunction) => {
-        res.redirect('/protected');
+        res.redirect('/dashboard');
     }
 }
 

@@ -7,7 +7,7 @@ export function checkAuthenticated(req: Request, res: Response, next: NextFuncti
 }
 
 export function checkNotAuthenticated(req: Request, res: Response, next: NextFunction) {
-    if (req.isAuthenticated()) return res.redirect('/protected');
+    if (req.isAuthenticated()) return res.redirect('/dashboard');
     next();
 }
 

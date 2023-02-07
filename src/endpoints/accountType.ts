@@ -17,7 +17,7 @@ let options = {
             return res.redirect("/login");
         });
 
-        if (user && user.accountType !== "") return res.redirect("/protected");
+        if (user && user.accountType !== "") return res.redirect("/dashboard");
 
         res.render("accountType.ejs", { auth: req.isAuthenticated() });
     },
@@ -36,22 +36,23 @@ let options = {
             return res.redirect("/login");
         });
 
-        if (user && user.accountType !== "") return res.redirect("/protected");
+        if (user && user.accountType !== "") return res.redirect("/dashboard");
 
         user.accountType = `${type}`;
 
-        await user.save();
+        user.save();
 
-        res.redirect("/protected");
+        res.redirect("/dashboard");
     }
 }
 
 export default options;
 
 interface User {
-    id: String,
-    fullname: String,
-    premium: Boolean,
-    accountType: String,
-    save(): any;
+    id: String;
+    authType: String;
+    username: String;
+    premium: Boolean;
+    accountType: String;
+    save(): void;
 }
