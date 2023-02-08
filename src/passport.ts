@@ -16,7 +16,10 @@ export default function initialisePassport(passport: any, getUserById: Function)
             new User({
                 id: profile.id,
                 authType: profile.provider,
-                username: profile.name.givenName,
+                username: {
+                    name: profile.name.givenName,
+                    cooldown: 0
+                },
                 premium: false,
                 accountType: ""
             }).save();
@@ -37,7 +40,10 @@ export default function initialisePassport(passport: any, getUserById: Function)
             new User({
                 id: profile.id,
                 authType: profile.provider,
-                username: profile.displayName,
+                username: {
+                    name: profile.displayName,
+                    cooldown: 0,
+                },
                 premium: false,
                 accountType: ""
             }).save();

@@ -19,7 +19,7 @@ let options = {
 
         if(user && user.accountType === "") return res.redirect("/accountType");
 
-        res.render("panel.ejs", { auth: req.isAuthenticated(), name: user.username });
+        res.render("panel.ejs", { auth: req.isAuthenticated(), name: user.username?.name });
     }
 }
 

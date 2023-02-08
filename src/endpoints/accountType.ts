@@ -51,7 +51,10 @@ export default options;
 interface User {
     id: String;
     authType: String;
-    username: String;
+    username: {
+        name: String;
+        cooldown: Number;
+    };
     premium: Boolean;
     accountType: String;
     save(): void;
