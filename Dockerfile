@@ -1,8 +1,8 @@
-FROM node:alpine
+FROM node:19-alpine
 
 WORKDIR /application
 
-COPY package*.json ./
+COPY package.json ./
 
 RUN npm i
 
