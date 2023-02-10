@@ -49,13 +49,13 @@ let options = {
 export default options;
 
 interface User {
-    id: String;
-    authType: String;
+    id: string;
+    authType: string;
     username: {
-        name: String;
-        cooldown: Number;
+        name: string;
+        cooldown: number;
     };
-    premium: Boolean;
-    accountType: String;
+    premium: boolean;
+    accountType: string;
     save(): void;
 }
