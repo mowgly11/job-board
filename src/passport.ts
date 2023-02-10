@@ -11,6 +11,7 @@ export default function initialisePassport(passport: any, getUserById: Function)
     }, async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
         let user = await getUserById(profile.id);
 
+        
         if (user) return done(null, profile);
         else {
             new User({
@@ -21,13 +22,15 @@ export default function initialisePassport(passport: any, getUserById: Function)
                     cooldown: 0
                 },
                 premium: false,
-                accountType: ""
+                accountType: "",
+                picture: profile.photos[0]?.value
             }).save();
 
             return done(null, profile);
         }
-    }));
 
+    }));
+    
     passport.use(new GitHubStrategy({
         clientID: config.github.client_id,
         clientSecret: config.github.client_secret,
@@ -35,6 +38,8 @@ export default function initialisePassport(passport: any, getUserById: Function)
     }, async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
         let user = await getUserById(profile.id);
 
+        console.log(profile)
+        
         if (user) return done(null, profile);
         else {
             new User({
@@ -45,7 +50,8 @@ export default function initialisePassport(passport: any, getUserById: Function)
                     cooldown: 0,
                 },
                 premium: false,
-                accountType: ""
+                accountType: "",
+                picture: profile._json.avatar_url
             }).save();
 
             return done(null, profile);

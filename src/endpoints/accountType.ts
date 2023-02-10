@@ -57,5 +57,6 @@ interface User {
     };
     premium: boolean;
     accountType: string;
+    picture: string;
     save(): void;
 }

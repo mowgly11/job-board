@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script type="text/javascript" src="script.js" defer></script>
   <title>Account Settings</title>
 </head>
 
@@ -14,6 +13,7 @@
   <h1>Account Settings</h1>
   <fieldset>
     <legend>Account</legend>
+    <img src="<%= picture %>" alt="<%= name %> picture" width="100" height="100" draggable="false">
     <p id="messages"></p>
     <form action="/settings" method="post" id="info-form">
       <div>
@@ -23,11 +23,7 @@
         <button type="button" id="cancel-button">Cancel</button>
         <button type="submit" id="save-button">Save</button>
       </div>
-    </form>
-    <form action="/settings/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="avatar" required />
-      <button type="submit">Update Picture</button>
-    </form>
+    </form><br>
   </fieldset>
 </body>
 
@@ -79,9 +75,9 @@
           CancelBtn.style.display = "none";
           SaveBtn.style.display = "none";
         }
-      })
-    })
-  })
+      });
+    });
+  });
 </script>
 
 </html>
