@@ -14,7 +14,10 @@ import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 
 const limiter: RateLimitRequestHandler = rateLimit({
     max: 3,
-    windowMs: 900000
+    windowMs: 900000,
+    standardHeaders: true,
+    message: 'Too many accounts created from this IP, please try again after half an hour',
+	legacyHeaders: false,
 });
 
 export { limiter }
@@ -29,7 +32,7 @@ const app: Express = express();
 
 app.set('view engine', 'ejs');
 app.use(express.json());
-app.use(express.static(__dirname + '../views'));
+app.use(express.static('C:\\Users\\oussa\\OneDrive\\Bureau\\workspace\\job-board\\views\\'));
 app.use(session({
     secret: config.server.session_secret,
     resave: false,

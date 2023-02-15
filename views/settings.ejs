@@ -6,16 +6,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <script src="./script.js" defer></script>
   <title>Account Settings</title>
 </head>
 
 <body>
   <h1>Account Settings</h1>
+  <div class="loading">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  
   <fieldset>
     <legend>Account</legend>
     <img src="<%= picture %>" alt="<%= name %> picture" width="100" height="100" draggable="false">
     <p id="messages"></p>
-    <form action="/settings" method="post" id="info-form">
+    <form action="/settings/username" method="post" id="info-form">
       <div>
         <label for="username">Username</label>
         <input type="text" id="input-name" name="input-name" pattern="[a-zA-Z]{4,30}" value="<%= name %>" required disabled>
@@ -26,58 +34,5 @@
     </form><br>
   </fieldset>
 </body>
-
-<script>
-  const EditBtn = document.getElementById("edit-button");
-  const CancelBtn = document.getElementById("cancel-button");
-  const SaveBtn = document.getElementById("save-button");
-  const nameInput = document.getElementById("input-name");
-
-  let lastValue;
-
-  CancelBtn.style.display = "none";
-  SaveBtn.style.display = "none";
-
-  EditBtn.onclick = (e) => {
-    nameInput.removeAttribute("disabled");
-    lastValue = nameInput.value;
-    EditBtn.style.display = "none";
-    CancelBtn.style.display = "inline-block";
-    SaveBtn.style.display = "inline-block";
-  }
-
-  CancelBtn.onclick = (e) => {
-    nameInput.setAttribute("disabled", true);
-    nameInput.value = lastValue;
-    EditBtn.style.display = "inline-block";
-    CancelBtn.style.display = "none";
-    SaveBtn.style.display = "none";
-  }
-
-  $(document).ready(() => {
-    $("#info-form").on("submit", (e) => {
-      e.preventDefault();
-
-      const value = $("#input-name").val();
-
-      $.ajax({
-        url: "/settings",
-        method: "post",
-        contentType: "application/json",
-        data: JSON.stringify({
-          newName: value
-        }),
-        success: (res) => {
-          if (res.error) return $("#messages").html(res.error);
-          $("#messages").html(res.message);
-          nameInput.setAttribute("disabled", true);
-          EditBtn.style.display = "inline-block";
-          CancelBtn.style.display = "none";
-          SaveBtn.style.display = "none";
-        }
-      });
-    });
-  });
-</script>
 
 </html>
