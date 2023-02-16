@@ -11,7 +11,6 @@ export default function initialisePassport(passport: any, getUserById: Function)
     }, async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
         let user = await getUserById(profile.id);
 
-        
         if (user) return done(null, profile);
         else {
             new User({
@@ -37,8 +36,6 @@ export default function initialisePassport(passport: any, getUserById: Function)
         callbackURL: 'http://localhost:80/auth/github/callback'
     }, async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
         let user = await getUserById(profile.id);
-
-        console.log(profile)
         
         if (user) return done(null, profile);
         else {

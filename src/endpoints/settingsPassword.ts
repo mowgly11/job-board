@@ -1,12 +1,12 @@
+import User from '../mongoDB/Schema/user';
 import { Request, Response, NextFunction } from 'express';
 import { checkAuthenticated } from '../middleware/authMiddleware';
-import User from '../mongoDB/Schema/user';
 
 let options = {
-    methods: ["get"],
-    endpoint: "/settings",
+    methods: ["post"],
+    endpoint: "/settings/password",
     middleware: checkAuthenticated,
-    callbackGET: async function (req: Request, res: Response, next: NextFunction) {
+    callbackPOST: async function (req: Request, res: Response, next: NextFunction) {
         const id = req.session.passport.user;
         const user = await User.findOne({
             id: id
@@ -18,14 +18,7 @@ let options = {
         });
 
         if (user && user.accountType === "") return res.redirect("/accountType");
-
-        res.render("settings.ejs", {
-            auth: req.isAuthenticated(),
-            name: user.username.name,
-            provider: user.authType,
-            picture: user.picture
-        });
-    },
+    }
 }
 
 export default options;
