@@ -29,6 +29,7 @@ $(document).ready(() => {
         e.preventDefault();
 
         const value = $("#input-name").val();
+        document.querySelector(".loading").classList.remove("hidden"); 
 
         $.ajax({
             url: "/settings/username",
@@ -38,6 +39,7 @@ $(document).ready(() => {
                 newName: value
             }),
             success: (res) => {
+                document.querySelector(".loading").classList.add("hidden");
                 if (res.error) return $("#messages").html(res.error);
                 $("#messages").html(res.message);
                 nameInput.setAttribute("disabled", true);

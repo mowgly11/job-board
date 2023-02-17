@@ -13,7 +13,7 @@
 
 <body>
   <h1>Account Settings</h1>
-  <div class="loading">
+  <div class="loading hidden">
     <div class="dot"></div>
     <div class="dot"></div>
     <div class="dot"></div>
@@ -21,7 +21,7 @@
   
   <fieldset>
     <legend>Account</legend>
-    <img src="<%= picture %>" alt="<%= name %> picture" width="100" height="100" draggable="false">
+    <img src="<%=picture%>" alt="<%= name %> picture" width="100" height="100" draggable="false">
     <p id="messages"></p>
     <form action="/settings/username" method="post" id="info-form">
       <div>
