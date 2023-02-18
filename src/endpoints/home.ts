@@ -5,7 +5,7 @@ let options = {
     endpoint: "/",
     middleware: false,
     callbackGET: function (req: Request, res: Response, next: NextFunction) {
-        res.render("index.ejs", { auth: req.isAuthenticated() });
+        res.status(200).render("index.ejs", { auth: req.isAuthenticated() });
     }
 }
 

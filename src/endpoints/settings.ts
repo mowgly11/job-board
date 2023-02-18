@@ -14,12 +14,12 @@ let options = {
 
         if (!user || user.username == undefined) return req.logOut((err) => {
             if (err) throw new Error("Error loggin out");
-            return res.redirect("/login");
+            return res.status(401).redirect("/login");
         });
 
-        if (user && user.accountType === "") return res.redirect("/accountType");
+        if (user && user.accountType === "") return res.status(401).redirect("/accountType");
 
-        res.render("settings.ejs", {
+        res.status(200).render("settings.ejs", {
             auth: req.isAuthenticated(),
             name: user.username.name,
             provider: user.authType,

@@ -14,12 +14,12 @@ let options = {
 
         if (!user) return req.logOut((err) => {
             if (err) throw new Error("Error loggin out");
-            return res.redirect("/login");
+            return res.status(401).redirect("/login");
         });
 
-        if (user && user.accountType !== "") return res.redirect("/dashboard");
+        if (user && user.accountType !== "") return res.status(401).redirect("/dashboard");
 
-        res.render("accountType.ejs", { auth: req.isAuthenticated() });
+        res.status(200).render("accountType.ejs", { auth: req.isAuthenticated() });
     },
     callbackPOST: async (req: Request, res: Response, next: NextFunction) => {
         const type: string = req.body.type;
@@ -33,16 +33,16 @@ let options = {
 
         if (!user) return req.logOut((err) => {
             if (err) throw new Error("Error loggin out");
-            return res.redirect("/login");
+            return res.status(401).redirect("/login");
         });
 
-        if (user && user.accountType !== "") return res.redirect("/dashboard");
+        if (user && user.accountType !== "") return res.status(401).redirect("/dashboard");
 
         user.accountType = `${type}`;
 
         user.save();
 
-        res.redirect("/dashboard");
+        res.status(200).redirect("/dashboard");
     }
 }
 

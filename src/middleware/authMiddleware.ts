@@ -3,11 +3,11 @@ import User from '../mongoDB/Schema/user';
 
 export function checkAuthenticated(req: Request, res: Response, next: NextFunction) {
     if (req.isAuthenticated()) return next();
-    res.redirect('/login');
+    res.status(401).redirect('/login');
 }
 
 export function checkNotAuthenticated(req: Request, res: Response, next: NextFunction) {
-    if (req.isAuthenticated()) return res.redirect('/dashboard');
+    if (req.isAuthenticated()) return res.status(401).redirect('/dashboard');
     next();
 }
 

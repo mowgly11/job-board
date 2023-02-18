@@ -6,7 +6,7 @@ let options = {
     endpoint: "/login",
     middleware: checkNotAuthenticated,
     callbackGET: function (req: Request, res: Response, next: NextFunction) {
-        res.render('login.ejs');
+        res.status(200).render('login.ejs');
     }
 }
 

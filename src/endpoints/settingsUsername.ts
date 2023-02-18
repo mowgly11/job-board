@@ -25,7 +25,7 @@ let options = {
 
         switch (option) {
             default:
-                res.status(404).send({ error: "Invalid Param" });
+                res.status(404).send({ error: "Invalid Parameter" });
                 break;
             case 'username':
                 const filter: BadWordsFilter = new Filter();
@@ -48,7 +48,7 @@ let options = {
                 res.status(200).send({ message: "Username Set Successfully to " + username });
                 break;
             case 'description':
-                
+
         }
     }
 }

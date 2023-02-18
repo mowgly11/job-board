@@ -8,7 +8,7 @@ let options = {
         req.logOut((err) => {
             if (err) return next(err);
         });
-        res.redirect("/login");
+        res.status(200).redirect("/login");
     }
 }
 
