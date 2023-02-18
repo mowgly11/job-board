@@ -70,4 +70,8 @@ endpointsFiles.forEach((f: string) => {
     }
 });
 
+app.all('*', (req, res) => {
+    res.sendStatus(404);
+});
+
 app.listen(port, () => console.log("Up on port " + port));
