@@ -49,6 +49,7 @@ let options = {
                 break;
             case 'description':
 
+                break;
         }
     }
 }

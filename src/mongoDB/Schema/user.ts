@@ -7,6 +7,7 @@ const userSchema = new Schema({
         name: String,
         cooldown: Number,
     },
+    description: String,
     premium: {
         type: Boolean,
         default: false

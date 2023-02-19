@@ -60,7 +60,6 @@ endpointsFiles.forEach((f: string) => {
 
     if (file.methods.find((e: string) => e === 'post') != null) {
         if (file.middleware) app.post(`${file.endpoint}`, file.middleware, file.callbackPOST);
-        if (file.middleware2) app.post(`${file.endpoint}`, file.middleware, file.middleware2, file.callbackPOST);
         else app.post(`${file.endpoint}`, file.callbackPOST);
     }
 

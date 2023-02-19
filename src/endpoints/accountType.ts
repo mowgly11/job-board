@@ -55,6 +55,7 @@ interface User {
         name: string;
         cooldown: number;
     };
+    description: string,
     premium: boolean;
     accountType: string;
     picture: string;

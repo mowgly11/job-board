@@ -20,6 +20,7 @@ export default function initialisePassport(passport: any, getUserById: Function)
                     name: profile.name.givenName,
                     cooldown: 0
                 },
+                description: "No Description",
                 premium: false,
                 accountType: "",
                 picture: profile.photos[0]?.value
@@ -46,6 +47,7 @@ export default function initialisePassport(passport: any, getUserById: Function)
                     name: profile.displayName,
                     cooldown: 0,
                 },
+                description: "No Description",
                 premium: false,
                 accountType: "",
                 picture: profile._json.avatar_url

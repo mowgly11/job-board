@@ -21,9 +21,9 @@
   
   <fieldset>
     <legend>Account</legend>
-    <img src="<%=picture%>" alt="<%= name %> picture" width="100" height="100" draggable="false">
+    <img src="<%= picture %>" alt="<%= name %> picture" width="100" height="100" draggable="false">
     <p id="messages"></p>
-    <form action="/settings/username" method="post" id="info-form">
+    <form action="/settings/username" method="post" id="username-form">
       <div>
         <label for="username">Username</label>
         <input type="text" id="input-name" name="input-name" pattern="[a-zA-Z]{4,30}" value="<%= name %>" required disabled>
@@ -32,6 +32,7 @@
         <button type="submit" id="save-button">Save</button>
       </div>
     </form><br>
+    <form action="/settings/description" method="post" id="description-form"></form>
   </fieldset>
 </body>
 
