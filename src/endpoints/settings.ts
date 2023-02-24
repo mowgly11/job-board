@@ -23,7 +23,6 @@ let options = {
             auth: req.isAuthenticated(),
             name: user.username.name,
             provider: user.authType,
-            picture: user.picture
         });
     },
 }

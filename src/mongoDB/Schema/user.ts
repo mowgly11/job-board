@@ -13,7 +13,6 @@ const userSchema = new Schema({
         default: false
     },
     accountType: String,
-    picture: String
 });
 
 export default model("GoogleUsers", userSchema);
